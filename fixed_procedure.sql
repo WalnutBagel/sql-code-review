@@ -3,8 +3,9 @@ create  or alter procedure syn.usp_ImportFileCustomerSeasonal
 AS
 set nocount on
 begin
-	declare @RowCount int = (select count(*) from syn.SA_CustomerSeasonal)
-	declare @ErrorMessage varchar(max)
+	declare 
+            @RowCount int = (select count(*) from syn.SA_CustomerSeasonal)
+	        @ErrorMessage varchar(max)
 
 -- Проверка на корректность загрузки
 	if not exists (
