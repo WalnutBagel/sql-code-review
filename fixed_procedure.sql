@@ -9,10 +9,10 @@ begin
 
 -- Проверка на корректность загрузки
 	if not exists (
-	select 1
-	from syn.ImportFile as f
-	where f.ID = @Record_ID
-		and f.FlagLoaded = cast(1 as bit)
+        select 1
+        from syn.ImportFile as f
+        where f.ID = @Record_ID
+            and f.FlagLoaded = cast(1 as bit)
 	)
 		begin
 			set @ErrorMessage = 'Ошибка при загрузке файла, проверьте корректность данных'
@@ -32,12 +32,16 @@ begin
 		,cast(isnull(cs.FlagActive, 0) as bit) as FlagActive
 	into #CustomerSeasonal
 	from syn.SA_CustomerSeasonal as cs
-		join dbo.Customer as c on c.UID_DS = cs.UID_DS_Customer
+		join dbo.Customer as c
+            on c.UID_DS = cs.UID_DS_Customer
 			and c.ID_mapping_DataSource = 1
-		join dbo.Season as s on s.Name = cs.Season
-		join dbo.Customer as c_dist on c_dist.UID_DS = cs.UID_DS_CustomerDistributor
+		join dbo.Season as s
+            on s.Name = cs.Season
+		join dbo.Customer as c_dist
+            on c_dist.UID_DS = cs.UID_DS_CustomerDistributor
 			and c_dist.ID_mapping_DataSource = 1
-		join syn.CustomerSystemType as cst on cs.CustomerSystemType = cst.Name
+		join syn.CustomerSystemType as cst
+            on cs.CustomerSystemType = cst.Name
 	where try_cast(cs.DateBegin as date) is not null
 		and try_cast(cs.DateEnd as date) is not null
 		and try_cast(isnull(cs.FlagActive, 0) as bit) is not null
