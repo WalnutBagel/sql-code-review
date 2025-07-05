@@ -115,7 +115,7 @@ begin
             s.DateEnd,
             s.ID_dbo_CustomerDistributor,
             s.FlagActive
-            )
+            );
 
 	-- Информационное сообщение
 	begin
