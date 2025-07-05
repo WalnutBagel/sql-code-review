@@ -124,7 +124,7 @@ begin
 		raiserror(@ErrorMessage, 1, 1)
 
 		-- Формирование таблицы для отчетности
-		select top 100
+		select top (100)
 			Season as 'Сезон'
 			,UID_DS_Customer as 'UID Клиента'
 			,Customer as 'Клиент'
