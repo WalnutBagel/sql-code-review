@@ -36,7 +36,7 @@ begin
 			and c.ID_mapping_DataSource = 1
 		join dbo.Season as s on s.Name = cs.Season
 		join dbo.Customer as c_dist on c_dist.UID_DS = cs.UID_DS_CustomerDistributor
-			and cd.ID_mapping_DataSource = 1
+			and c_dist.ID_mapping_DataSource = 1
 		join syn.CustomerSystemType as cst on cs.CustomerSystemType = cst.Name
 	where try_cast(cs.DateBegin as date) is not null
 		and try_cast(cs.DateEnd as date) is not null
@@ -87,11 +87,10 @@ begin
 			,cs_temp.ID_dbo_CustomerDistributor
 			,cs_temp.FlagActive
 		from #CustomerSeasonal as cs_temp
-	) as s on s.ID_dbo_Customer = cs.ID_dbo_Customer
+	) as s on s.ID_dbo_Customer = t.ID_dbo_Customer
 		and s.ID_Season = cs.ID_Season
 		and s.DateBegin = cs.DateBegin
-	when matched
-		and t.ID_CustomerSystemType <> s.ID_CustomerSystemType then
+	when matched and t.ID_CustomerSystemType <> s.ID_CustomerSystemType then
 		update
 		set
 			ID_CustomerSystemType = s.ID_CustomerSystemType
