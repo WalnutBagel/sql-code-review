@@ -101,7 +101,8 @@ begin
 		insert (
             ID_dbo_Customer,
             ID_CustomerSystemType,
-            ID_Season, DateBegin,
+            ID_Season,
+            DateBegin,
             DateEnd,
             ID_dbo_CustomerDistributor,
             FlagActive
@@ -117,7 +118,6 @@ begin
             );
 
 	-- Информационное сообщение
-	begin
 		select @ErrorMessage = concat('Обработано строк: ', @RowCount)
 
 		raiserror(@ErrorMessage, 1, 1)
@@ -137,6 +137,5 @@ begin
 		from #BadInsertedRows
 
 		return
-	end
 
 end
