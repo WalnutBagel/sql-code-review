@@ -57,11 +57,16 @@ begin
 		end as Reason
 	into #BadInsertedRows
 	from syn.SA_CustomerSeasonal as cs
-	left join dbo.Customer as c on c.UID_DS = cs.UID_DS_Customer
+	left join dbo.Customer as c
+        on c.UID_DS = cs.UID_DS_Customer
 		and c.ID_mapping_DataSource = 1
-	left join dbo.Customer as c_dist on c_dist.UID_DS = cs.UID_DS_CustomerDistributor and c_dist.ID_mapping_DataSource = 1
-	left join dbo.Season as s on s.Name = cs.Season
-	left join syn.CustomerSystemType as cst on cst.Name = cs.CustomerSystemType
+	left join dbo.Customer as c_dist
+        on c_dist.UID_DS = cs.UID_DS_CustomerDistributor 
+        and c_dist.ID_mapping_DataSource = 1
+	left join dbo.Season as s
+        on s.Name = cs.Season
+	left join syn.CustomerSystemType as cst
+        on cst.Name = cs.CustomerSystemType
 	where c.ID is null
 		or c_dist.ID is null
 		or s.ID is null
