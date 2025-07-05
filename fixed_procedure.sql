@@ -1,11 +1,11 @@
-create  or alter procedure syn.usp_ImportFileCustomerSeasonal
+create or alter procedure syn.usp_ImportFileCustomerSeasonal
 	@Record_ID int
-AS
+as
 set nocount on
 begin
-	declare 
-            @RowCount int = (select count(*) from syn.SA_CustomerSeasonal)
-	        @ErrorMessage varchar(max)
+	declare
+        @RowCount int = (select count(*) from syn.SA_CustomerSeasonal)
+	    @ErrorMessage varchar(max)
 
 -- Проверка на корректность загрузки
 	if not exists (
