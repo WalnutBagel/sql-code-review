@@ -62,8 +62,8 @@ begin
 	left join dbo.Customer as c_dist on c_dist.UID_DS = cs.UID_DS_CustomerDistributor and c_dist.ID_mapping_DataSource = 1
 	left join dbo.Season as s on s.Name = cs.Season
 	left join syn.CustomerSystemType as cst on cst.Name = cs.CustomerSystemType
-	where cc.ID is null
-		or cd.ID is null
+	where c.ID is null
+		or c_dist.ID is null
 		or s.ID is null
 		or cst.ID is null
 		or try_cast(cs.DateBegin as date) is null
